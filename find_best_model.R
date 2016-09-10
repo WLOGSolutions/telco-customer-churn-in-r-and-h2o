@@ -18,4 +18,5 @@ find_best_model <- function(h2o_grid) {
         thresholds = h2o.performance(model, xval = TRUE))
     }
   }
+  return(best_model)
 }

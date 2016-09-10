@@ -1,7 +1,5 @@
 .libPaths("libs")
 
-print(.libPaths())
-
 library(data.table)
 library(h2o)
 library(bit64)
@@ -26,11 +24,12 @@ loginfo("--> Cleaning&transforming data...")
 all_data[, ind := factor(sample(0:1, size = .N, replace = TRUE, prob = c(0.3, 0.7)),
                          levels = 0:1,
                          labels = c("Test", "Train"))]
-all_data[, churn := factor(ifelse(churn == 0, "churn", "nochurn"))]
+all_data[, churn := factor(ifelse(churn == 1, "churn", "nochurn"))]
 
 loginfo("--> done")
 
-h2o_local <- h2o.init(nthreads = 4, max_mem_size = "6g")
+h2o_local <- h2o.init(nthreads = 4, 
+                      max_mem_size = "6g")
 h2o.removeAll()
 
 h2o_train <- as.h2o(x = all_data[ind == "Train"],
@@ -56,8 +55,7 @@ gbm_model <- h2o.grid(algorithm = "gbm",
                       hyper_params = list(
                         ntrees = c(50, 
                                    100, 
-                                   500
-                                   ),
+                                   500),
                         max_depth = c(4,
                                       8,
                                       16,
@@ -65,34 +63,14 @@ gbm_model <- h2o.grid(algorithm = "gbm",
 
 loginfo("--> Grid search done")
 
-best_model <-  
+best_model <- find_best_model(gbm_model)
 
-best_model <- NULL
-for (model_id in gbm_model@model_ids) {
-  model <- h2o.getModel(model_id)
-  model_auc <- h2o.auc(model, xval = TRUE)
-  print(sprintf("Model %s got %s AUC", model@model_id, model_auc))
-  if (is.null(best_model)) {
-    best_model <- list(
-      model = model,
-      threshold = h2o.find_threshold_by_max_metric(h2o.performance(model, xval = TRUE), 
-                                                   "min_per_class_accuracy"),
-      thresholds = h2o.performance(model, xval = TRUE))
-  } else if (h2o.auc(best_model$model, xval = TRUE) < model_auc) {
-    best_model <- list(
-      model = model,
-      threshold = h2o.find_threshold_by_max_metric(h2o.performance(model, xval = TRUE), 
-                                                   "min_per_class_accuracy"),
-      thresholds = h2o.performance(model, xval = TRUE))
-  }
-}
-
-loginfo("--> Best model with AUC=%s", h2o.auc(best_model$model))
+loginfo("--> Best model with AUC=%s", h2o.auc(best_model$model, xval = TRUE))
 loginfo("--> Threshold for min per class accuracy metric = %s", best_model$threshold)
 
 test_preds <- cbind(all_data[ind == "Test"], 
                     as.data.table(h2o.predict(object = best_model$model, 
-                                              newdata = h2o_test))[, .(churn_pred = ifelse(nochurn < best_model$threshold, 
+                                              newdata = h2o_test))[, .(churn_pred = ifelse(churn > 1 - best_model$threshold, 
                                                                                            "churn", 
                                                                                            "nochurn"), 
                                                                        churn_prob = churn)])
