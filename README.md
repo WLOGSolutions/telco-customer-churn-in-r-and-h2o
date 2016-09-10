@@ -23,5 +23,13 @@ I have used R version 3.2.3 with the following R packages:
 
 To run the example just execute `source("build_telco_churn_model.R")`
 
+# Showcase walkthrough
 
+## Obtained results
 
+Best model (with threshold selected to maximize min per class classification error) gave following results on  test dataset:
+
+* **AUC** = 0.947
+* **Accuracy** = 0.866
+* **Precision** = 0.395
+* **Recall** = 0.875
