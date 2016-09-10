@@ -27,6 +27,10 @@ I have used R version 3.2.3 with the following R packages:
 
 # Showcase walkthrough
 
+## Approach
+
+TODO
+
 ## Obtained results
 
 Best model (with threshold selected to maximize min per class classification error) gave following results on  test dataset:
@@ -35,3 +39,14 @@ Best model (with threshold selected to maximize min per class classification err
 * **Accuracy** = 0.866
 * **Precision** = 0.395
 * **Recall** = 0.875
+
+## Performance issues
+
+Computation involved validating (using 5-fold cross validation) 6 GBM models with different parameters.
+On my laptop (Intel i7,  8GB RAM, Windows 10) it took around 25 minutes. Using Amazon's EC2 x4.4xlarge instance the time droped to around 14-15 minutes.
+
+## Good practices 
+
+1. Always install packages for each project separately.
+2. Select best model with any parametr tunning procedure.
+3. Do not forget to optimize threshold.
