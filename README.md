@@ -29,7 +29,13 @@ I have used R version 3.2.3 with the following R packages:
 
 ## Approach
 
-TODO
+I decided to go with Gradient Boosting Models. To select best model I used *grid search* for such parameters:
+
+* number of trees: 50, 100, 500
+* max tree depth: 4, 8, 16, 32 
+
+Best model was selected using AUC metric -- resulting in 100 trees with max depth equals 16.
+After model building I optimized threshold to maximize minimum per class accuracy. 
 
 ## Obtained results
 
