@@ -17,11 +17,13 @@ I have used R version 3.2.3 with the following R packages:
 
 * **data** - this folder contains CSV file with customers' info. It is a copy of data from ZhouFang928's example.
 * **export** - this folder is for saving computing results
+* **install_packages.R** - R script that installs packages into local `libs` folder
 * **build_telco_churn_model.R** - R script that does the thing
 
 # Instruction
 
-To run the example just execute `source("build_telco_churn_model.R")`
+1. Install packages by running `source("install_packages.R")`
+2. Train and evaluate model by running `source("build_telco_churn_model.R")`
 
 # Showcase walkthrough
 
