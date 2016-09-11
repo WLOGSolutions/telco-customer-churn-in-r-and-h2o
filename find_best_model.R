@@ -1,4 +1,6 @@
-find_best_model <- function(h2o_grid) {
+find_best_model <- function(...) {
+  h2o_grid <- h2o.grid(...)
+  
   best_model <- NULL
   for (model_id in h2o_grid@model_ids) {
     model <- h2o.getModel(model_id)

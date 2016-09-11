@@ -44,26 +44,28 @@ predictors <- setdiff(colnames(all_data),
                       c("churn",
                         "customerid"))
 churn_var <- "churn"
-gbm_model <- h2o.grid(algorithm = "gbm",
-                      grid_id = "gbm_grid",
-                      training_frame = h2o_train,
-                      x = predictors,
-                      y = churn_var,
-                      nfolds = 5,
-                      balance_classes = TRUE,
-                      distribution  = "bernoulli",
-                      hyper_params = list(
-                        ntrees = c(50, 
-                                   100, 
-                                   500),
-                        max_depth = c(4,
-                                      8,
-                                      16,
-                                      32)))
+best_model <- find_best_model(algorithm = "gbm",
+                              grid_id = "gbm_grid",
+                              training_frame = h2o_train,
+                              x = predictors,
+                              y = churn_var,
+                              nfolds = 5,
+                              balance_classes = TRUE,
+                              distribution  = "bernoulli",
+                              hyper_params = list(
+                                ntrees = c(50, 
+                                           100#, 
+                                           #500
+                                           ),
+                                max_depth = c(4#,
+                                              #8,
+                                              #16,
+                                              #32
+                                              )))
 
-loginfo("--> Grid search done")
+h2o.saveModel(best_model$model, path = "export", force = TRUE)
 
-best_model <- find_best_model(gbm_model)
+loginfo("--> Best model exported into export folder")
 
 loginfo("--> Best model with AUC=%s", h2o.auc(best_model$model, xval = TRUE))
 loginfo("--> Threshold for min per class accuracy metric = %s", best_model$threshold)
