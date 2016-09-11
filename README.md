@@ -16,9 +16,10 @@ I have used R version 3.2.3 with the following R packages:
 # Project structure
 
 * **data** - this folder contains CSV file with customers' info. It is a copy of data from ZhouFang928's example.
-* **export** - this folder is for saving computing results
+* **export** - this folder is for saving computing results (currently final model is stored there)
 * **install_packages.R** - R script that installs packages into local `libs` folder
 * **build_telco_churn_model.R** - R script that does the thing
+* **find_best_model.R** - utility function that does grid search and returns best model with the optimal threshold.
 
 # Instruction
 
@@ -49,7 +50,7 @@ Best model (with threshold selected to maximize min per class classification err
 ## Performance issues
 
 Computation involved validating (using 5-fold cross validation) 6 GBM models with different parameters.
-On my laptop (Intel i7,  8GB RAM, Windows 10) it took around 25 minutes. Using Amazon's EC2 x4.4xlarge instance the time droped to around 14-15 minutes.
+On my laptop (Intel i7,  8GB RAM, Windows 10) it took around 25 minutes. Using Amazon's EC2 c4.4xlarge instance the time droped to around 14-15 minutes.
 
 ## Good practices 
 
