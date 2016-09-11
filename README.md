@@ -17,6 +17,7 @@ I have used R version 3.2.3 with the following R packages:
 
 1. Install packages by running `source("install_packages.R")`
 2. Train and evaluate model by running `source("build_telco_churn_model.R")`
+    3. After succesful model building you can find it (in H2O format) in folder `export`. It can be loaded in H2O Flow for further inspection.
 
 ## Approach
 
