@@ -13,6 +13,10 @@ I have used R version 3.2.3 with the following R packages:
 * [bit64](https://cran.r-project.org/web/packages/bit64/index.html), version 0.9-5
 * [pROC](https://cran.r-project.org/web/packages/pROC/index.html), version 1.8
 
+### Remark for Windows users
+
+Instalation of the packages requires [Rtools](https://cran.r-project.org/bin/windows/Rtools/) compatible with your R version.
+
 ## Usage instruction
 
 1. Install packages by running `source("install_packages.R")`
