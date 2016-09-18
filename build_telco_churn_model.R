@@ -56,15 +56,14 @@ best_model <- find_best_classifier_model(
     balance_classes = TRUE,
     distribution  = "bernoulli",
     hyper_params = list(
-        ntrees = c(50#, 
-                   #100, 
-                   #500
+        ntrees = c(50, 
+                   100, 
+                   500
                    ),
-        max_depth = c(4#,
-                      #8,
-                      #16,
-                      #32
-                      )))
+        max_depth = c(4,
+                      8,
+                      16,
+                      32)))
 
 h2o.saveModel(best_model$model, path = "export", force = TRUE)
 
