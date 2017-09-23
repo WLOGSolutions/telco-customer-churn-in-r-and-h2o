@@ -87,7 +87,7 @@ Best model (with threshold selected to maximize min per class classification err
 
 ## Performance issues
 
-Computation involved validating (using 5-fold cross validation) 6 GBM models with different parameters.
+Computation involved validating (using 5-fold cross validation) 12 GBM models with different parameters.
 On my laptop (Intel i7,  8GB RAM, Windows 10) it took around 25 minutes. Using Amazon's EC2 c4.4xlarge instance the time droped to around 14-15 minutes.
 
 ## Good practices 
