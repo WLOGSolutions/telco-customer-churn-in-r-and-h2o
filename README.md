@@ -11,8 +11,6 @@ I have used:
 * R in version 3.3.2
 * [R Suite](https://github.com/WLOGSolutions/RSuite) in version [0.9-211](https://github.com/WLOGSolutions/RSuite/releases/tag/211)
 
-
-
 ### Remark for Windows users
 
 Instalation of the packages requires [Rtools](https://cran.r-project.org/bin/windows/Rtools/) compatible with your R version.
