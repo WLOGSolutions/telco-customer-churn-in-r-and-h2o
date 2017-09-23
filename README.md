@@ -110,9 +110,3 @@ Folders:
 * **packages**
     * **externalpackages** - dummy package to maintain 3rd party packages dependencies 
     * **modelbuilder** - package that delivers funciton that builds GBM models 
-
-Files:
-
-* **install_packages.R** - R script that installs packages into local `libs` folder
-* **build_telco_churn_model.R** - R script that does the thing
-* **find_best_model.R** - utility function that does grid search and returns best model with the optimal threshold.
