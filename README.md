@@ -94,7 +94,7 @@ On my laptop (Intel i7,  8GB RAM, Windows 10) it took around 25 minutes. Using A
 
 ## Good practices 
 
-1. Always install packages for each project separately.
+1. Always install packages for each project separately. [R Suite](https://github.com/WLOGSolutions/RSuite) solution makes it for you.
 2. Select best model with any parametr tunning procedure.
 3. Do not forget to optimize threshold.
 
@@ -105,8 +105,11 @@ On my laptop (Intel i7,  8GB RAM, Windows 10) it took around 25 minutes. Using A
 Folders:
 
 * **data** - this folder contains CSV file with customers' info. It is a copy of data from ZhouFang928's example.
-* **libs** - this folder contains packages installed by `install_packages.R`
 * **export** - this folder is for saving computing results (currently final model is stored there)
+* **R** - master scripts
+* **packages**
+    * **externalpackages** - dummy package to maintain 3rd party packages dependencies 
+    * **modelbuilder** - package that delivers funciton that builds GBM models 
 
 Files:
 
