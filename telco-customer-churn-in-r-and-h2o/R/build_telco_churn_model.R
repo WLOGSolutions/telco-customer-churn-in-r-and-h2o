@@ -36,8 +36,13 @@ all_data[, churn := factor(ifelse(churn == 1, "churn", "nochurn"))]
 
 loginfo("--> done")
 
-h2o_local <- h2o.init(nthreads = 4,
-                      max_mem_size = "6g")
+nthreads <- as.integer(args$get("nthreads", required = FALSE, default = -1))
+max_mem_size <- args$get("max_mem", required = FALSE, default = "4g")
+
+logdebug("------> nthreads:%d, max_mem_size:%s", nthreads, max_mem_size)
+
+h2o_local <- h2o.init(nthreads = nthreads,
+                      max_mem_size = max_mem_size)
 h2o.removeAll()
 
 h2o_train <- as.h2o(x = all_data[ind == "Train"],

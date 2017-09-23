@@ -59,9 +59,13 @@ You should get the following output
 Run model training and evaluation 
 
 ```bash
-Rscript R\build_telco_churn_model.R
+Rscript.exe R\build_telco_churn_model.R --nthreads=4 --max-mem="4g"
 ```
 
+Please note that script has two parameters:
+
+* *nthreads* - number of threads to be used with -1 (all) as default
+* *max_mem* - maximum memory size for H2O with 4g as default
 
 ### Check results
 
