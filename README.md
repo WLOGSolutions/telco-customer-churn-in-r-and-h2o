@@ -8,7 +8,7 @@ ZhouFang928 in a blog post [Telco Customer Churn with R in SQL Server 2016](http
 
 I have used:
 
-* R in version 3.3.2
+* [R](https://www.r-project.org/) in version 3.3.2
 * [R Suite](https://github.com/WLOGSolutions/RSuite) in version [0.9-211](https://github.com/WLOGSolutions/RSuite/releases/tag/211)
 * [H2O](https://www.h2o.ai/) in version [3.15.0.4034](http://h2o-release.s3.amazonaws.com/h2o/master/4034/R)
 
@@ -81,10 +81,10 @@ After model building I optimized threshold to maximize minimum per class accurac
 
 Best model (with threshold selected to maximize min per class classification error) gave following results on  test dataset:
 
-* **AUC** = 0.947
-* **Accuracy** = 0.866
-* **Precision** = 0.395
-* **Recall** = 0.875
+* **AUC** = 0.949
+* **Accuracy** = 0.879
+* **Precision** = 0.420
+* **Recall** = 0.848
 
 ## Performance issues
 
@@ -96,6 +96,7 @@ On my laptop (Intel i7,  8GB RAM, Windows 10) it took around 25 minutes. Using A
 1. Always install packages for each project separately. [R Suite](https://github.com/WLOGSolutions/RSuite) solution makes it for you.
 2. Select best model with any parametr tunning procedure.
 3. Do not forget to optimize threshold.
+4. Use logging instead of `print` function.
 
 # Project structure description
 
