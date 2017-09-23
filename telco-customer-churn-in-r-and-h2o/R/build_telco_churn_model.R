@@ -1,17 +1,25 @@
-.libPaths("libs")
+# Detect proper script_path (you cannot use args yet as they are build with tools in set_env.r)
+script_path <- (function() {
+  args <- commandArgs(trailingOnly = FALSE)
+  script_path <- dirname(sub("--file=", "", args[grep("--file=", args)]))
+  if (!length(script_path)) { return(".") }
+  return(normalizePath(script_path))
+})()
 
-library(data.table)
-library(h2o)
-library(bit64)
-library(pROC)
-library(logging)
+# Setting .libPaths() to point to libs folder
+source(file.path(script_path, "set_env.R"), chdir = T)
 
-source("find_best_model.R")
+config <- load_config()
+args <- args_parser()
 
-logging::basicConfig()
+data_path <- file.path(script_path, "../data")
+export_path <- file.path(script_path, "../export")
+
+library(externalpackages)
+library(modelbuilder)
 
 loginfo("--> Loading data...")
-all_data <- fread("data/edw_cdr.csv")
+all_data <- fread(file.path(data_path, "edw_cdr.csv"))
 all_data <- all_data[, !c("month", "year"), with = FALSE]
 all_data <- all_data[complete.cases(all_data)]
 all_data <- all_data[!duplicated(all_data)]
@@ -28,7 +36,7 @@ all_data[, churn := factor(ifelse(churn == 1, "churn", "nochurn"))]
 
 loginfo("--> done")
 
-h2o_local <- h2o.init(nthreads = 4, 
+h2o_local <- h2o.init(nthreads = 4,
                       max_mem_size = "6g")
 h2o.removeAll()
 
@@ -56,8 +64,8 @@ best_model <- find_best_classifier_model(
     balance_classes = TRUE,
     distribution  = "bernoulli",
     hyper_params = list(
-        ntrees = c(50, 
-                   100, 
+        ntrees = c(50,
+                   100,
                    500
                    ),
         max_depth = c(4,
@@ -65,18 +73,18 @@ best_model <- find_best_classifier_model(
                       16,
                       32)))
 
-h2o.saveModel(best_model$model, path = "export", force = TRUE)
+h2o.saveModel(best_model$model, path = export_path, force = TRUE)
 
 loginfo("--> Best model exported into export folder")
 
 loginfo("--> Best model with AUC=%s", h2o.auc(best_model$model, xval = TRUE))
 loginfo("--> Threshold for min per class accuracy metric = %s", best_model$threshold)
 
-test_preds <- cbind(all_data[ind == "Test"], 
-                    as.data.table(h2o.predict(object = best_model$model, 
-                                              newdata = h2o_test))[, .(churn_pred = ifelse(churn > 1 - best_model$threshold, 
-                                                                                           "churn", 
-                                                                                           "nochurn"), 
+test_preds <- cbind(all_data[ind == "Test"],
+                    as.data.table(h2o.predict(object = best_model$model,
+                                              newdata = h2o_test))[, .(churn_pred = ifelse(churn > 1 - best_model$threshold,
+                                                                                           "churn",
+                                                                                           "nochurn"),
                                                                        churn_prob = churn)])
 
 loginfo("--> Scoring test datasets done")

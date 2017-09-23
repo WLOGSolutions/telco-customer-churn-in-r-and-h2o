@@ -1,0 +1,5 @@
+RSuiteVersion: 0.9.211
+RVersion: 3.3
+Project: telco-customer-churn-in-r-and-h2o
+Repositories: MRAN[2017-09-23], S3[http://h2o-release.s3.amazonaws.com/h2o/master/4034/R]
+Artifacts: config_templ.txt

@@ -1,0 +1,13 @@
+Package: modelbuilder
+Type: Package
+Title: What the package does (short line)
+Version: 0.1
+Date: 2017-09-23
+Author: Wit Jakuczun
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+Depends:
+    logging,
+    h2o (>= 3.15.0.4034)
+RoxygenNote: 5.0.1

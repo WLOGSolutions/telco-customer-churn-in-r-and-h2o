@@ -6,12 +6,12 @@ ZhouFang928 in a blog post [Telco Customer Churn with R in SQL Server 2016](http
 
 ## Prerequisities
 
-I have used R version 3.2.3 with the following R packages:
+I have used:
 
-* [data.table](https://cran.r-project.org/web/packages/data.table/index.html), version 1.9.6
-* [h2o](http://www.h2o.ai/download/h2o/r), version 3.10.0.6
-* [bit64](https://cran.r-project.org/web/packages/bit64/index.html), version 0.9-5
-* [pROC](https://cran.r-project.org/web/packages/pROC/index.html), version 1.8
+* R in version 3.3.2
+* [R Suite](https://github.com/WLOGSolutions/RSuite) in version [0.9-211](https://github.com/WLOGSolutions/RSuite/releases/tag/211)
+
+
 
 ### Remark for Windows users
 
@@ -19,9 +19,54 @@ Instalation of the packages requires [Rtools](https://cran.r-project.org/bin/win
 
 ## Usage instruction
 
-1. Install packages by running `source("install_packages.R")`
-2. Train and evaluate model by running `source("build_telco_churn_model.R")`
-    3. After succesful model building you can find it (in H2O format) in folder `export`. It can be loaded in H2O Flow for further inspection.
+### Prepare project
+
+Install dependencies for the project
+
+```bash
+rsuite proj depsinst
+```
+
+It will result in the following output
+
+```
+2017-09-23 20:39:18 INFO:rsuite:Detecting repositories (for R 3.3)...
+2017-09-23 20:39:20 WARNING:rsuite:Project is configured to use non reliable repositories: S3. You should use only reliable repositories to be sure of project consistency over time.
+2017-09-23 20:39:20 INFO:rsuite:Will look for dependencies in ...
+2017-09-23 20:39:20 INFO:rsuite:.          MRAN#1 = http://mran.microsoft.com/snapshot/2017-09-23 (win.binary, source)
+2017-09-23 20:39:20 INFO:rsuite:.            S3#2 = http://h2o-release.s3.amazonaws.com/h2o/master/4034/R (source)
+2017-09-23 20:39:20 INFO:rsuite:Collecting project dependencies (for R 3.3)...
+2017-09-23 20:39:20 INFO:rsuite:Resolving dependencies (for R 3.3)...
+2017-09-23 20:39:44 INFO:rsuite:Detected 29 dependencies to install. Installing...
+2017-09-23 20:43:47 INFO:rsuite:All dependencies successfully installed.
+```
+
+Build custom packages
+
+```bash
+rsuite proj build
+```
+
+You should get the following output
+
+```
+2017-09-23 20:48:46 INFO:rsuite:Installing externalpackages (for R 3.3) ...
+2017-09-23 20:48:51 INFO:rsuite:Installing modelbuilder (for R 3.3) ...
+2017-09-23 20:48:57 INFO:rsuite:Successfuly build 2 packages
+```
+
+### Train and evaluate models
+
+Run model training and evaluation 
+
+```bash
+Rscript R\build_telco_churn_model.R
+```
+
+
+### Check results
+
+After succesful model building you can find it (in H2O format) in folder `export`. It can be loaded in H2O Flow for further inspection.
 
 ## Approach
 
