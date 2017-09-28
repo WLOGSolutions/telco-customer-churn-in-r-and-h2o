@@ -9,7 +9,7 @@ ZhouFang928 in a blog post [Telco Customer Churn with R in SQL Server 2016](http
 I have used:
 
 * [R](https://www.r-project.org/) in version 3.3.2
-* [R Suite](https://github.com/WLOGSolutions/RSuite) in version [0.9-211](https://github.com/WLOGSolutions/RSuite/releases/tag/211)
+* [R Suite](https://github.com/WLOGSolutions/RSuite/blob/master/docs/basic_workflow.md) in version [0.9-211](https://github.com/WLOGSolutions/RSuite/releases/tag/211)
 * [H2O](https://www.h2o.ai/) in version [3.15.0.4034](http://h2o-release.s3.amazonaws.com/h2o/master/4034/R)
 
 ### Remark for Windows users
